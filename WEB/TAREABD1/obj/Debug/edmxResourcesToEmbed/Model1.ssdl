@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Tarea1_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Beneficiarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroCuenta" Type="int" Nullable="false" />
+    <Property Name="ValorDocuIdentidadBeneficiario" Type="int" Nullable="false" />
+    <Property Name="ParentezcoId" Type="int" Nullable="false" />
+    <Property Name="Porcentaje" Type="int" Nullable="false" />
+    <Property Name="Activo" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cuentas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ValorDocuIdentidadDelCliente" Type="int" Nullable="false" />
+    <Property Name="TipoCuentaId" Type="int" Nullable="false" />
+    <Property Name="NumeroCuenta" Type="int" Nullable="false" />
+    <Property Name="FechaCreacion" Type="date" Nullable="false" />
+    <Property Name="Saldo" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Parentezcos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Personas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TipoDocuIdentidad" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ValorDocuIdentidad" Type="int" Nullable="false" />
+    <Property Name="FechaNacimiento" Type="date" Nullable="false" />
+    <Property Name="Email" Type="varchar" MaxLength="64" Nullable="false" />
+    <Property Name="Telefono1" Type="int" Nullable="false" />
+    <Property Name="Telefono2" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TipoCuentaAhorros">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="IdTipoMoneda" Type="int" Nullable="false" />
+    <Property Name="SaldoMinimo" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="MultaSaldoMin" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CargoAnual" Type="int" Nullable="false" />
+    <Property Name="NumRetirosHumanos" Type="int" Nullable="false" />
+    <Property Name="NumRetirosAutomaticos" Type="int" Nullable="false" />
+    <Property Name="ComisionHumano" Type="int" Nullable="false" />
+    <Property Name="ComisionAutomatico" Type="int" Nullable="false" />
+    <Property Name="Interes" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoDocuIdentidad">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TipoMoneda">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Pass" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="ValorDocuIdentidad" Type="int" Nullable="false" />
+    <Property Name="EsAdministrador" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios_Ver">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="NumeroCuenta" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Beneficiarios_Cuentas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Beneficiarios_Cuentas" />-->
+  <Association Name="FK_Beneficiarios_Parentezcos">
+    <End Role="Parentezcos" Type="Self.Parentezcos" Multiplicity="1" />
+    <End Role="Beneficiarios" Type="Self.Beneficiarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parentezcos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Beneficiarios">
+        <PropertyRef Name="ParentezcoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Beneficiarios_Personas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Beneficiarios_Personas" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Cuentas_Personas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Cuentas_Personas" />-->
+  <Association Name="FK_Cuentas_TipoCuentaAhorros">
+    <End Role="TipoCuentaAhorros" Type="Self.TipoCuentaAhorros" Multiplicity="1" />
+    <End Role="Cuentas" Type="Self.Cuentas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoCuentaAhorros">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cuentas">
+        <PropertyRef Name="TipoCuentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_TipoDocuIdentidad">
+    <End Role="TipoDocuIdentidad" Type="Self.TipoDocuIdentidad" Multiplicity="1" />
+    <End Role="Personas" Type="Self.Personas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoDocuIdentidad">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="TipoDocuIdentidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Usuarios_Personas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Usuarios_Personas" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Usuarios_Ver_Cuentas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Usuarios_Ver_Cuentas" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="FK_Usuarios_Ver_Usuarios" />-->
+  <Association Name="TipoCuentaAhorro_TipoMoneda">
+    <End Role="TipoMoneda" Type="Self.TipoMoneda" Multiplicity="1" />
+    <End Role="TipoCuentaAhorros" Type="Self.TipoCuentaAhorros" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMoneda">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TipoCuentaAhorros">
+        <PropertyRef Name="IdTipoMoneda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="ACTUALIZAR_PERSONA_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
+    <Parameter Name="ValorDocu" Type="int" Mode="In" />
+    <Parameter Name="Nombre" Type="varchar" Mode="In" />
+    <Parameter Name="IDParentezco" Type="int" Mode="In" />
+    <Parameter Name="Porcentaje" Type="int" Mode="In" />
+    <Parameter Name="FechaNacimiento" Type="date" Mode="In" />
+    <Parameter Name="Email" Type="varchar" Mode="In" />
+    <Parameter Name="Telefono1" Type="int" Mode="In" />
+    <Parameter Name="Telefono2" Type="int" Mode="In" />
+  </Function>
+  <Function Name="AGREGAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
+    <Parameter Name="DocumentoIdentidadBeneficiario" Type="int" Mode="In" />
+    <Parameter Name="IdParentezco" Type="int" Mode="In" />
+    <Parameter Name="Porcentaje" Type="int" Mode="In" />
+  </Function>
+  <Function Name="BENEFICIARIO_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
+    <Parameter Name="ValorDocuBene" Type="int" Mode="In" />
+  </Function>
+  <Function Name="BENEFICIARIO_POR_CUENTA2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
+    <Parameter Name="ValorDocuBene" Type="int" Mode="In" />
+  </Function>
+  <Function Name="BENEFICIARIOS_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumCuenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CHECK_PORCENTAJES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumCuenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CHECK_PORCENTAJES2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumCuenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="ELIMINAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
+    <Parameter Name="DocumentoBene" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="INICIO_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USER" Type="varchar" Mode="In" />
+    <Parameter Name="PASS" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="INICIO_SESION2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="USER" Type="varchar" Mode="In" />
+    <Parameter Name="PASS" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="RESET_TABLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Tarea1_BDModelStoreContainer">
+    <EntitySet Name="Beneficiarios" EntityType="Self.Beneficiarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cuentas" EntityType="Self.Cuentas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Parentezcos" EntityType="Self.Parentezcos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Personas" EntityType="Self.Personas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoCuentaAhorros" EntityType="Self.TipoCuentaAhorros" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoDocuIdentidad" EntityType="Self.TipoDocuIdentidad" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TipoMoneda" EntityType="Self.TipoMoneda" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios_Ver" EntityType="Self.Usuarios_Ver" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Beneficiarios_Parentezcos" Association="Self.FK_Beneficiarios_Parentezcos">
+      <End Role="Parentezcos" EntitySet="Parentezcos" />
+      <End Role="Beneficiarios" EntitySet="Beneficiarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuentas_TipoCuentaAhorros" Association="Self.FK_Cuentas_TipoCuentaAhorros">
+      <End Role="TipoCuentaAhorros" EntitySet="TipoCuentaAhorros" />
+      <End Role="Cuentas" EntitySet="Cuentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_TipoDocuIdentidad" Association="Self.FK_Personas_TipoDocuIdentidad">
+      <End Role="TipoDocuIdentidad" EntitySet="TipoDocuIdentidad" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="TipoCuentaAhorro_TipoMoneda" Association="Self.TipoCuentaAhorro_TipoMoneda">
+      <End Role="TipoMoneda" EntitySet="TipoMoneda" />
+      <End Role="TipoCuentaAhorros" EntitySet="TipoCuentaAhorros" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

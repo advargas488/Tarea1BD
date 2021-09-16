@@ -1,0 +1,59 @@
+﻿@model IEnumerable<TAREABD1.BENEFICIARIOS_POR_CUENTA_Result>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h3 class="alert-danger">@ViewBag.Message</h3>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NumeroCuenta)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorDocuIdentidadBeneficiario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ParentezcoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Porcentaje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Activo)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumeroCuenta)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ValorDocuIdentidadBeneficiario)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ParentezcoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Porcentaje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Activo)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { numeroCuenta = item.NumeroCuenta, ValorDocu = item.ValorDocuIdentidadBeneficiario }) |
+            @Html.ActionLink("Details", "Details", new { numeroCuenta = item.NumeroCuenta, ValorDocu = item.ValorDocuIdentidadBeneficiario }) |
+            @Html.ActionLink("Delete", "Delete", new { numeroCuenta = item.NumeroCuenta, ValorDocu = item.ValorDocuIdentidadBeneficiario })
+        </td>
+    </tr>
+}
+
+</table>

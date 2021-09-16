@@ -1,0 +1,51 @@
+﻿@model TAREABD1.Usuario
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorDocuIdentidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorDocuIdentidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsAdministrador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsAdministrador)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

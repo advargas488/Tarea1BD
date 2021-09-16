@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Tarea1_BDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Beneficiario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NumeroCuenta" Type="Int32" Nullable="false" />
+    <Property Name="ValorDocuIdentidadBeneficiario" Type="Int32" Nullable="false" />
+    <Property Name="ParentezcoId" Type="Int32" Nullable="false" />
+    <Property Name="Porcentaje" Type="Int32" Nullable="false" />
+    <Property Name="Activo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Parentezco" Relationship="Self.FK_Beneficiarios_Parentezcos" FromRole="Beneficiarios" ToRole="Parentezcos" />
+  </EntityType>
+  <EntityType Name="Cuenta">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ValorDocuIdentidadDelCliente" Type="Int32" Nullable="false" />
+    <Property Name="TipoCuentaId" Type="Int32" Nullable="false" />
+    <Property Name="NumeroCuenta" Type="Int32" Nullable="false" />
+    <Property Name="FechaCreacion" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Saldo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="TipoCuentaAhorro" Relationship="Self.FK_Cuentas_TipoCuentaAhorros" FromRole="Cuentas" ToRole="TipoCuentaAhorros" />
+  </EntityType>
+  <EntityType Name="Parentezco">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Beneficiarios" Relationship="Self.FK_Beneficiarios_Parentezcos" FromRole="Parentezcos" ToRole="Beneficiarios" />
+  </EntityType>
+  <EntityType Name="Persona">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TipoDocuIdentidad" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ValorDocuIdentidad" Type="Int32" Nullable="false" />
+    <Property Name="FechaNacimiento" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Email" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Telefono1" Type="Int32" Nullable="false" />
+    <Property Name="Telefono2" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TipoDocuIdentidad1" Relationship="Self.FK_Personas_TipoDocuIdentidad" FromRole="Personas" ToRole="TipoDocuIdentidad" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TipoCuentaAhorro">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdTipoMoneda" Type="Int32" Nullable="false" />
+    <Property Name="SaldoMinimo" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MultaSaldoMin" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CargoAnual" Type="Int32" Nullable="false" />
+    <Property Name="NumRetirosHumanos" Type="Int32" Nullable="false" />
+    <Property Name="NumRetirosAutomaticos" Type="Int32" Nullable="false" />
+    <Property Name="ComisionHumano" Type="Int32" Nullable="false" />
+    <Property Name="ComisionAutomatico" Type="Int32" Nullable="false" />
+    <Property Name="Interes" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Cuentas" Relationship="Self.FK_Cuentas_TipoCuentaAhorros" FromRole="TipoCuentaAhorros" ToRole="Cuentas" />
+    <NavigationProperty Name="TipoMoneda" Relationship="Self.TipoCuentaAhorro_TipoMoneda" FromRole="TipoCuentaAhorros" ToRole="TipoMoneda" />
+  </EntityType>
+  <EntityType Name="TipoDocuIdentidad">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Personas" Relationship="Self.FK_Personas_TipoDocuIdentidad" FromRole="TipoDocuIdentidad" ToRole="Personas" />
+  </EntityType>
+  <EntityType Name="TipoMoneda">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="TipoCuentaAhorros" Relationship="Self.TipoCuentaAhorro_TipoMoneda" FromRole="TipoMoneda" ToRole="TipoCuentaAhorros" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pass" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ValorDocuIdentidad" Type="Int32" Nullable="false" />
+    <Property Name="EsAdministrador" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios_Ver">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NumeroCuenta" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Beneficiarios_Parentezcos">
+    <End Role="Parentezcos" Type="Self.Parentezco" Multiplicity="1" />
+    <End Role="Beneficiarios" Type="Self.Beneficiario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Parentezcos">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Beneficiarios">
+        <PropertyRef Name="ParentezcoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuentas_TipoCuentaAhorros">
+    <End Role="TipoCuentaAhorros" Type="Self.TipoCuentaAhorro" Multiplicity="1" />
+    <End Role="Cuentas" Type="Self.Cuenta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoCuentaAhorros">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Cuentas">
+        <PropertyRef Name="TipoCuentaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Personas_TipoDocuIdentidad">
+    <End Role="TipoDocuIdentidad" Type="Self.TipoDocuIdentidad" Multiplicity="1" />
+    <End Role="Personas" Type="Self.Persona" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoDocuIdentidad">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Personas">
+        <PropertyRef Name="TipoDocuIdentidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TipoCuentaAhorro_TipoMoneda">
+    <End Role="TipoMoneda" Type="Self.TipoMoneda" Multiplicity="1" />
+    <End Role="TipoCuentaAhorros" Type="Self.TipoCuentaAhorro" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoMoneda">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TipoCuentaAhorros">
+        <PropertyRef Name="IdTipoMoneda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Tarea1_BDEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Beneficiarios" EntityType="Self.Beneficiario" />
+    <EntitySet Name="Cuentas" EntityType="Self.Cuenta" />
+    <EntitySet Name="Parentezcos" EntityType="Self.Parentezco" />
+    <EntitySet Name="Personas" EntityType="Self.Persona" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TipoCuentaAhorros" EntityType="Self.TipoCuentaAhorro" />
+    <EntitySet Name="TipoDocuIdentidads" EntityType="Self.TipoDocuIdentidad" />
+    <EntitySet Name="TipoMonedas" EntityType="Self.TipoMoneda" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+    <EntitySet Name="Usuarios_Ver" EntityType="Self.Usuarios_Ver" />
+    <AssociationSet Name="FK_Beneficiarios_Parentezcos" Association="Self.FK_Beneficiarios_Parentezcos">
+      <End Role="Parentezcos" EntitySet="Parentezcos" />
+      <End Role="Beneficiarios" EntitySet="Beneficiarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuentas_TipoCuentaAhorros" Association="Self.FK_Cuentas_TipoCuentaAhorros">
+      <End Role="TipoCuentaAhorros" EntitySet="TipoCuentaAhorros" />
+      <End Role="Cuentas" EntitySet="Cuentas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Personas_TipoDocuIdentidad" Association="Self.FK_Personas_TipoDocuIdentidad">
+      <End Role="TipoDocuIdentidad" EntitySet="TipoDocuIdentidads" />
+      <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="TipoCuentaAhorro_TipoMoneda" Association="Self.TipoCuentaAhorro_TipoMoneda">
+      <End Role="TipoMoneda" EntitySet="TipoMonedas" />
+      <End Role="TipoCuentaAhorros" EntitySet="TipoCuentaAhorros" />
+    </AssociationSet>
+    <FunctionImport Name="ACTUALIZAR_PERSONA_BENEFICIARIO">
+      <Parameter Name="NumeroCuenta" Mode="In" Type="Int32" />
+      <Parameter Name="ValorDocu" Mode="In" Type="Int32" />
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="IDParentezco" Mode="In" Type="Int32" />
+      <Parameter Name="Porcentaje" Mode="In" Type="Int32" />
+      <Parameter Name="FechaNacimiento" Mode="In" Type="DateTime" />
+      <Parameter Name="Email" Mode="In" Type="String" />
+      <Parameter Name="Telefono1" Mode="In" Type="Int32" />
+      <Parameter Name="Telefono2" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="AGREGAR_BENEFICIARIO">
+      <Parameter Name="NumeroCuenta" Mode="In" Type="Int32" />
+      <Parameter Name="DocumentoIdentidadBeneficiario" Mode="In" Type="Int32" />
+      <Parameter Name="IdParentezco" Mode="In" Type="Int32" />
+      <Parameter Name="Porcentaje" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="BENEFICIARIOS_POR_CUENTA" ReturnType="Collection(Tarea1_BDModel.BENEFICIARIOS_POR_CUENTA_Result)">
+      <Parameter Name="NumCuenta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CHECK_PORCENTAJES">
+      <Parameter Name="NumCuenta" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="ELIMINAR_BENEFICIARIO">
+      <Parameter Name="NumeroCuenta" Mode="In" Type="Int32" />
+      <Parameter Name="DocumentoBene" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="INICIO_SESION">
+      <Parameter Name="USER" Mode="In" Type="String" />
+      <Parameter Name="PASS" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="RESET_TABLE" />
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(Tarea1_BDModel.sp_helpdiagramdefinition_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(Tarea1_BDModel.sp_helpdiagrams_Result)">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <FunctionImport Name="INICIO_SESION2" ReturnType="Collection(Int32)">
+      <Parameter Name="USER" Mode="In" Type="String" />
+      <Parameter Name="PASS" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="BENEFICIARIO_POR_CUENTA" ReturnType="Collection(Tarea1_BDModel.BENEFICIARIO_POR_CUENTA_Result)">
+      <Parameter Name="NumeroCuenta" Mode="In" Type="Int32" />
+      <Parameter Name="ValorDocuBene" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="BENEFICIARIO_POR_CUENTA2" ReturnType="Collection(Tarea1_BDModel.BENEFICIARIO_POR_CUENTA2_Result)">
+      <Parameter Name="NumeroCuenta" Mode="In" Type="Int32" />
+      <Parameter Name="ValorDocuBene" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="CHECK_PORCENTAJES2" ReturnType="Collection(Int32)">
+      <Parameter Name="NumCuenta" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="BENEFICIARIOS_POR_CUENTA_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="Int32" Name="NumeroCuenta" Nullable="false" />
+    <Property Type="Int32" Name="ValorDocuIdentidadBeneficiario" Nullable="false" />
+    <Property Type="Int32" Name="ParentezcoId" Nullable="false" />
+    <Property Type="Int32" Name="Porcentaje" Nullable="false" />
+    <Property Type="Int32" Name="Activo" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagramdefinition_Result">
+    <Property Type="Int32" Name="version" Nullable="true" />
+    <Property Type="Binary" Name="definition" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_helpdiagrams_Result">
+    <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+    <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+    <Property Type="Int32" Name="OwnerID" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="BENEFICIARIO_POR_CUENTA_Result">
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ParentezcoId" Nullable="false" />
+    <Property Type="Int32" Name="Porcentaje" Nullable="false" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+    <Property Type="Int32" Name="ValorDocuIdentidad" Nullable="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="64" />
+    <Property Type="Int32" Name="Telefono1" Nullable="false" />
+    <Property Type="Int32" Name="Telefono2" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="BENEFICIARIO_POR_CUENTA2_Result">
+    <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+    <Property Type="Int32" Name="ParentezcoId" Nullable="false" />
+    <Property Type="Int32" Name="Porcentaje" Nullable="false" />
+    <Property Type="DateTime" Name="FechaNacimiento" Nullable="false" />
+    <Property Type="Int32" Name="ValorDocuIdentidadBeneficiario" Nullable="false" />
+    <Property Type="String" Name="Email" Nullable="false" MaxLength="64" />
+    <Property Type="Int32" Name="Telefono1" Nullable="false" />
+    <Property Type="Int32" Name="Telefono2" Nullable="false" />
+  </ComplexType>
+</Schema>

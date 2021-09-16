@@ -1,0 +1,57 @@
+﻿@model TAREABD1.Usuario
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pass)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pass)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ValorDocuIdentidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ValorDocuIdentidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EsAdministrador)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EsAdministrador)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

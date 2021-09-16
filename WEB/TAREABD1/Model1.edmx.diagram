@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="16018866ff22438884e320fa3148c71b" Name="Diagram1">
+        <EntityTypeShape EntityType="Tarea1_BDModel.Beneficiario" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.Cuenta" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.Parentezco" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.Persona" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.sysdiagram" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.TipoCuentaAhorro" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.TipoDocuIdentidad" Width="1.5" PointX="0.75" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.TipoMoneda" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.Usuario" Width="1.5" PointX="5.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Tarea1_BDModel.Usuarios_Ver" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <AssociationConnector Association="Tarea1_BDModel.FK_Beneficiarios_Parentezcos" ManuallyRouted="false" />
+        <AssociationConnector Association="Tarea1_BDModel.FK_Cuentas_TipoCuentaAhorros" ManuallyRouted="false" />
+        <AssociationConnector Association="Tarea1_BDModel.FK_Personas_TipoDocuIdentidad" ManuallyRouted="false" />
+        <AssociationConnector Association="Tarea1_BDModel.TipoCuentaAhorro_TipoMoneda" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
