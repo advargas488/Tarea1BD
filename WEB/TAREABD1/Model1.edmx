@@ -182,12 +182,6 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
           <Parameter Name="Telefono1" Type="int" Mode="In" />
           <Parameter Name="Telefono2" Type="int" Mode="In" />
         </Function>
-        <Function Name="AGREGAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
-          <Parameter Name="DocumentoIdentidadBeneficiario" Type="int" Mode="In" />
-          <Parameter Name="IdParentezco" Type="int" Mode="In" />
-          <Parameter Name="Porcentaje" Type="int" Mode="In" />
-        </Function>
         <Function Name="BENEFICIARIO_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
           <Parameter Name="ValorDocuBene" Type="int" Mode="In" />
@@ -199,9 +193,6 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
         <Function Name="BENEFICIARIOS_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NumCuenta" Type="int" Mode="In" />
         </Function>
-        <Function Name="CHECK_PORCENTAJES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="NumCuenta" Type="int" Mode="In" />
-        </Function>
         <Function Name="CHECK_PORCENTAJES2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NumCuenta" Type="int" Mode="In" />
         </Function>
@@ -210,13 +201,18 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
           <Parameter Name="DocumentoBene" Type="int" Mode="In" />
         </Function>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-        <Function Name="INICIO_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="USER" Type="varchar" Mode="In" />
-          <Parameter Name="PASS" Type="varchar" Mode="In" />
+        <Function Name="GET_NUMERO_BENEFICIARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inNumCuenta" Type="int" Mode="In" />
         </Function>
         <Function Name="INICIO_SESION2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="USER" Type="varchar" Mode="In" />
           <Parameter Name="PASS" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="INSERTAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inNumCuenta" Type="int" Mode="In" />
+          <Parameter Name="inValorDocuIdentidadBeneficiario" Type="int" Mode="In" />
+          <Parameter Name="inParentezcoId" Type="int" Mode="In" />
+          <Parameter Name="inPorcentaje" Type="int" Mode="In" />
         </Function>
         <Function Name="RESET_TABLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -541,6 +537,15 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
           <FunctionImport Name="CHECK_PORCENTAJES2" ReturnType="Collection(Int32)">
           <Parameter Name="NumCuenta" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="GET_NUMERO_BENEFICIARIOS" ReturnType="Collection(Int32)">
+          <Parameter Name="inNumCuenta" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="INSERTAR_BENEFICIARIO">
+            <Parameter Name="inNumCuenta" Mode="In" Type="Int32" />
+            <Parameter Name="inValorDocuIdentidadBeneficiario" Mode="In" Type="Int32" />
+            <Parameter Name="inParentezcoId" Mode="In" Type="Int32" />
+            <Parameter Name="inPorcentaje" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BENEFICIARIOS_POR_CUENTA_Result">
           <Property Type="Int32" Name="Id" Nullable="false" />
@@ -698,7 +703,6 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="ACTUALIZAR_PERSONA_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.ACTUALIZAR_PERSONA_BENEFICIARIO" />
-          <FunctionImportMapping FunctionImportName="AGREGAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.AGREGAR_BENEFICIARIO" />
           <FunctionImportMapping FunctionImportName="BENEFICIARIOS_POR_CUENTA" FunctionName="Tarea1_BDModel.Store.BENEFICIARIOS_POR_CUENTA">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Tarea1_BDModel.BENEFICIARIOS_POR_CUENTA_Result">
@@ -711,9 +715,7 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="CHECK_PORCENTAJES" FunctionName="Tarea1_BDModel.Store.CHECK_PORCENTAJES" />
           <FunctionImportMapping FunctionImportName="ELIMINAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.ELIMINAR_BENEFICIARIO" />
-          <FunctionImportMapping FunctionImportName="INICIO_SESION" FunctionName="Tarea1_BDModel.Store.INICIO_SESION" />
           <FunctionImportMapping FunctionImportName="RESET_TABLE" FunctionName="Tarea1_BDModel.Store.RESET_TABLE" />
           <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Tarea1_BDModel.Store.sp_alterdiagram" />
           <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Tarea1_BDModel.Store.sp_creatediagram" />
@@ -769,6 +771,8 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="CHECK_PORCENTAJES2" FunctionName="Tarea1_BDModel.Store.CHECK_PORCENTAJES2" />
+          <FunctionImportMapping FunctionImportName="GET_NUMERO_BENEFICIARIOS" FunctionName="Tarea1_BDModel.Store.GET_NUMERO_BENEFICIARIOS" />
+          <FunctionImportMapping FunctionImportName="INSERTAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.INSERTAR_BENEFICIARIO" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

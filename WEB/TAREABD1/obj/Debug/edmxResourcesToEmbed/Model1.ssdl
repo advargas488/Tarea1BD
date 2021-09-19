@@ -177,12 +177,6 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
     <Parameter Name="Telefono1" Type="int" Mode="In" />
     <Parameter Name="Telefono2" Type="int" Mode="In" />
   </Function>
-  <Function Name="AGREGAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
-    <Parameter Name="DocumentoIdentidadBeneficiario" Type="int" Mode="In" />
-    <Parameter Name="IdParentezco" Type="int" Mode="In" />
-    <Parameter Name="Porcentaje" Type="int" Mode="In" />
-  </Function>
   <Function Name="BENEFICIARIO_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
     <Parameter Name="ValorDocuBene" Type="int" Mode="In" />
@@ -194,9 +188,6 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
   <Function Name="BENEFICIARIOS_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NumCuenta" Type="int" Mode="In" />
   </Function>
-  <Function Name="CHECK_PORCENTAJES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="NumCuenta" Type="int" Mode="In" />
-  </Function>
   <Function Name="CHECK_PORCENTAJES2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NumCuenta" Type="int" Mode="In" />
   </Function>
@@ -205,13 +196,18 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
     <Parameter Name="DocumentoBene" Type="int" Mode="In" />
   </Function>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
-  <Function Name="INICIO_SESION" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="USER" Type="varchar" Mode="In" />
-    <Parameter Name="PASS" Type="varchar" Mode="In" />
+  <Function Name="GET_NUMERO_BENEFICIARIOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="inNumCuenta" Type="int" Mode="In" />
   </Function>
   <Function Name="INICIO_SESION2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="USER" Type="varchar" Mode="In" />
     <Parameter Name="PASS" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="INSERTAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="inNumCuenta" Type="int" Mode="In" />
+    <Parameter Name="inValorDocuIdentidadBeneficiario" Type="int" Mode="In" />
+    <Parameter Name="inParentezcoId" Type="int" Mode="In" />
+    <Parameter Name="inPorcentaje" Type="int" Mode="In" />
   </Function>
   <Function Name="RESET_TABLE" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">

@@ -42,12 +42,12 @@ namespace TAREABD1.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            BENEFICIARIO_POR_CUENTA_Result bENEFICIARIO_POR_CUENTA_Result = db.BENEFICIARIO_POR_CUENTA(numeroCuenta,valorDocu).First();
-            if (bENEFICIARIO_POR_CUENTA_Result == null)
+            BENEFICIARIO_POR_CUENTA2_Result bENEFICIARIO_POR_CUENTA2_Result = db.BENEFICIARIO_POR_CUENTA2(numeroCuenta,valorDocu).First();
+            if (bENEFICIARIO_POR_CUENTA2_Result == null)
             {
                 return HttpNotFound();
             }
-            return View(bENEFICIARIO_POR_CUENTA_Result);
+            return View(bENEFICIARIO_POR_CUENTA2_Result);
         }
 
         // GET: BENEFICIARIOS_POR_CUENTA_Result/Create
@@ -61,16 +61,22 @@ namespace TAREABD1.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,NumeroCuenta,ValorDocuIdentidadBeneficiario,ParentezcoId,Porcentaje,Activo")] BENEFICIARIOS_POR_CUENTA_Result bENEFICIARIOS_POR_CUENTA_Result)
+        public ActionResult Create([Bind(Include = "ValorDocuIdentidadBeneficiario,ParentezcoId,Porcentaje")] Beneficiario beneficiario)
         {
+            int numeroBeneficiarios = (int)db.GET_NUMERO_BENEFICIARIOS(n).First();
+            if (numeroBeneficiarios >= 3)
+            {
+                ViewBag.Message("No puedes tener más de 3 beneficiarios");
+                return View();
+            }
             if (ModelState.IsValid)
             {
-                
+                db.INSERTAR_BENEFICIARIO(n, beneficiario.ValorDocuIdentidadBeneficiario, beneficiario.ParentezcoId,beneficiario.Porcentaje);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", new { numeroCuenta = n });
             }
 
-            return View(bENEFICIARIOS_POR_CUENTA_Result);
+            return View(beneficiario);
         }
 
         // GET: BENEFICIARIOS_POR_CUENTA_Result/Edit/5

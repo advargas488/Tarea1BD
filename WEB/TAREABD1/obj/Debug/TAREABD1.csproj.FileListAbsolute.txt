@@ -80,3 +80,4 @@ C:\Users\Dell\OneDrive\Desktop\JAVA\Tarea1BD\WEB\TAREABD1\obj\Debug\TAREABD1.csp
 C:\Users\Dell\OneDrive\Desktop\JAVA\Tarea1BD\WEB\TAREABD1\obj\Debug\TAREABD1.csproj.CopyComplete
 C:\Users\Dell\OneDrive\Desktop\JAVA\Tarea1BD\WEB\TAREABD1\obj\Debug\TAREABD1.dll
 C:\Users\Dell\OneDrive\Desktop\JAVA\Tarea1BD\WEB\TAREABD1\obj\Debug\TAREABD1.pdb
+C:\Users\Dell\OneDrive\Desktop\JAVA\Tarea1BD\WEB\TAREABD1\obj\Debug\TAREABD1.csproj.AssemblyReference.cache

@@ -112,7 +112,6 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ACTUALIZAR_PERSONA_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.ACTUALIZAR_PERSONA_BENEFICIARIO" />
-    <FunctionImportMapping FunctionImportName="AGREGAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.AGREGAR_BENEFICIARIO" />
     <FunctionImportMapping FunctionImportName="BENEFICIARIOS_POR_CUENTA" FunctionName="Tarea1_BDModel.Store.BENEFICIARIOS_POR_CUENTA">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Tarea1_BDModel.BENEFICIARIOS_POR_CUENTA_Result">
@@ -125,9 +124,7 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="CHECK_PORCENTAJES" FunctionName="Tarea1_BDModel.Store.CHECK_PORCENTAJES" />
     <FunctionImportMapping FunctionImportName="ELIMINAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.ELIMINAR_BENEFICIARIO" />
-    <FunctionImportMapping FunctionImportName="INICIO_SESION" FunctionName="Tarea1_BDModel.Store.INICIO_SESION" />
     <FunctionImportMapping FunctionImportName="RESET_TABLE" FunctionName="Tarea1_BDModel.Store.RESET_TABLE" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Tarea1_BDModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Tarea1_BDModel.Store.sp_creatediagram" />
@@ -183,5 +180,7 @@
       </ResultMapping>
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="CHECK_PORCENTAJES2" FunctionName="Tarea1_BDModel.Store.CHECK_PORCENTAJES2" />
+    <FunctionImportMapping FunctionImportName="GET_NUMERO_BENEFICIARIOS" FunctionName="Tarea1_BDModel.Store.GET_NUMERO_BENEFICIARIOS" />
+    <FunctionImportMapping FunctionImportName="INSERTAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.INSERTAR_BENEFICIARIO" />
   </EntityContainerMapping>
 </Mapping>
