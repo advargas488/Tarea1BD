@@ -32,7 +32,7 @@ namespace TAREABD1.Controllers
                 }
                 int numCuenta = (int)db.INICIO_SESION2(usuario.Username,usuario.Pass).First();
                 
-                return RedirectToAction("Index", "BENEFICIARIOS_POR_CUENTA_Result", new { NumeroCuenta = numCuenta });
+                return RedirectToAction("Index", "Cuentas", new { usuario = usuario.Username });
             }
 
             return View();

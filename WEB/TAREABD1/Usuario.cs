@@ -14,10 +14,19 @@ namespace TAREABD1
     
     public partial class Usuario
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Usuario()
+        {
+            this.Usuarios_Ver = new HashSet<Usuarios_Ver>();
+        }
+    
         public string Username { get; set; }
-        public string Pass { get; set; }
         public int ValorDocuIdentidad { get; set; }
+        public string Pass { get; set; }
         public int EsAdministrador { get; set; }
+    
+        public virtual Persona Persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios_Ver> Usuarios_Ver { get; set; }
     }
 }

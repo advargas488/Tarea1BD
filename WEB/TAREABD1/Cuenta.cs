@@ -14,13 +14,24 @@ namespace TAREABD1
     
     public partial class Cuenta
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cuenta()
+        {
+            this.Beneficiarios = new HashSet<Beneficiario>();
+            this.Usuarios_Ver = new HashSet<Usuarios_Ver>();
+        }
+    
+        public int NumeroCuenta { get; set; }
         public int ValorDocuIdentidadDelCliente { get; set; }
         public int TipoCuentaId { get; set; }
-        public int NumeroCuenta { get; set; }
         public System.DateTime FechaCreacion { get; set; }
         public string Saldo { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Beneficiario> Beneficiarios { get; set; }
+        public virtual Persona Persona { get; set; }
         public virtual TipoCuentaAhorro TipoCuentaAhorro { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuarios_Ver> Usuarios_Ver { get; set; }
     }
 }

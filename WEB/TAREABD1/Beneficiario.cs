@@ -14,13 +14,15 @@ namespace TAREABD1
     
     public partial class Beneficiario
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public int NumeroCuenta { get; set; }
         public int ValorDocuIdentidadBeneficiario { get; set; }
         public int ParentezcoId { get; set; }
         public int Porcentaje { get; set; }
         public int Activo { get; set; }
     
+        public virtual Cuenta Cuenta { get; set; }
         public virtual Parentezco Parentezco { get; set; }
+        public virtual Persona Persona { get; set; }
     }
 }

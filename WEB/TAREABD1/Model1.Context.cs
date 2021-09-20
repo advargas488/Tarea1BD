@@ -79,25 +79,17 @@ namespace TAREABD1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ACTUALIZAR_PERSONA_BENEFICIARIO", numeroCuentaParameter, valorDocuParameter, nombreParameter, iDParentezcoParameter, porcentajeParameter, fechaNacimientoParameter, emailParameter, telefono1Parameter, telefono2Parameter);
         }
     
-        public virtual int AGREGAR_BENEFICIARIO(Nullable<int> numeroCuenta, Nullable<int> documentoIdentidadBeneficiario, Nullable<int> idParentezco, Nullable<int> porcentaje)
+        public virtual ObjectResult<BENEFICIARIO_POR_CUENTA2_Result> BENEFICIARIO_POR_CUENTA2(Nullable<int> numeroCuenta, Nullable<int> valorDocuBene)
         {
             var numeroCuentaParameter = numeroCuenta.HasValue ?
                 new ObjectParameter("NumeroCuenta", numeroCuenta) :
                 new ObjectParameter("NumeroCuenta", typeof(int));
     
-            var documentoIdentidadBeneficiarioParameter = documentoIdentidadBeneficiario.HasValue ?
-                new ObjectParameter("DocumentoIdentidadBeneficiario", documentoIdentidadBeneficiario) :
-                new ObjectParameter("DocumentoIdentidadBeneficiario", typeof(int));
+            var valorDocuBeneParameter = valorDocuBene.HasValue ?
+                new ObjectParameter("ValorDocuBene", valorDocuBene) :
+                new ObjectParameter("ValorDocuBene", typeof(int));
     
-            var idParentezcoParameter = idParentezco.HasValue ?
-                new ObjectParameter("IdParentezco", idParentezco) :
-                new ObjectParameter("IdParentezco", typeof(int));
-    
-            var porcentajeParameter = porcentaje.HasValue ?
-                new ObjectParameter("Porcentaje", porcentaje) :
-                new ObjectParameter("Porcentaje", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("AGREGAR_BENEFICIARIO", numeroCuentaParameter, documentoIdentidadBeneficiarioParameter, idParentezcoParameter, porcentajeParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BENEFICIARIO_POR_CUENTA2_Result>("BENEFICIARIO_POR_CUENTA2", numeroCuentaParameter, valorDocuBeneParameter);
         }
     
         public virtual ObjectResult<BENEFICIARIOS_POR_CUENTA_Result> BENEFICIARIOS_POR_CUENTA(Nullable<int> numCuenta)
@@ -109,13 +101,22 @@ namespace TAREABD1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BENEFICIARIOS_POR_CUENTA_Result>("BENEFICIARIOS_POR_CUENTA", numCuentaParameter);
         }
     
-        public virtual int CHECK_PORCENTAJES(Nullable<int> numCuenta)
+        public virtual ObjectResult<Nullable<int>> CHECK_PORCENTAJES2(Nullable<int> numCuenta)
         {
             var numCuentaParameter = numCuenta.HasValue ?
                 new ObjectParameter("NumCuenta", numCuenta) :
                 new ObjectParameter("NumCuenta", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CHECK_PORCENTAJES", numCuentaParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CHECK_PORCENTAJES2", numCuentaParameter);
+        }
+    
+        public virtual ObjectResult<CUENTAS_POR_USUARIO_Result> CUENTAS_POR_USUARIO(string inUser)
+        {
+            var inUserParameter = inUser != null ?
+                new ObjectParameter("InUser", inUser) :
+                new ObjectParameter("InUser", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<CUENTAS_POR_USUARIO_Result>("CUENTAS_POR_USUARIO", inUserParameter);
         }
     
         public virtual int ELIMINAR_BENEFICIARIO(Nullable<int> numeroCuenta, Nullable<int> documentoBene)
@@ -131,7 +132,16 @@ namespace TAREABD1
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("ELIMINAR_BENEFICIARIO", numeroCuentaParameter, documentoBeneParameter);
         }
     
-        public virtual int INICIO_SESION(string uSER, string pASS)
+        public virtual ObjectResult<Nullable<int>> GET_NUMERO_BENEFICIARIOS(Nullable<int> inNumCuenta)
+        {
+            var inNumCuentaParameter = inNumCuenta.HasValue ?
+                new ObjectParameter("inNumCuenta", inNumCuenta) :
+                new ObjectParameter("inNumCuenta", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GET_NUMERO_BENEFICIARIOS", inNumCuentaParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> INICIO_SESION2(string uSER, string pASS)
         {
             var uSERParameter = uSER != null ?
                 new ObjectParameter("USER", uSER) :
@@ -141,7 +151,28 @@ namespace TAREABD1
                 new ObjectParameter("PASS", pASS) :
                 new ObjectParameter("PASS", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INICIO_SESION", uSERParameter, pASSParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("INICIO_SESION2", uSERParameter, pASSParameter);
+        }
+    
+        public virtual int INSERTAR_BENEFICIARIO(Nullable<int> inNumCuenta, Nullable<int> inValorDocuIdentidadBeneficiario, Nullable<int> inParentezcoId, Nullable<int> inPorcentaje)
+        {
+            var inNumCuentaParameter = inNumCuenta.HasValue ?
+                new ObjectParameter("inNumCuenta", inNumCuenta) :
+                new ObjectParameter("inNumCuenta", typeof(int));
+    
+            var inValorDocuIdentidadBeneficiarioParameter = inValorDocuIdentidadBeneficiario.HasValue ?
+                new ObjectParameter("inValorDocuIdentidadBeneficiario", inValorDocuIdentidadBeneficiario) :
+                new ObjectParameter("inValorDocuIdentidadBeneficiario", typeof(int));
+    
+            var inParentezcoIdParameter = inParentezcoId.HasValue ?
+                new ObjectParameter("inParentezcoId", inParentezcoId) :
+                new ObjectParameter("inParentezcoId", typeof(int));
+    
+            var inPorcentajeParameter = inPorcentaje.HasValue ?
+                new ObjectParameter("inPorcentaje", inPorcentaje) :
+                new ObjectParameter("inPorcentaje", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERTAR_BENEFICIARIO", inNumCuentaParameter, inValorDocuIdentidadBeneficiarioParameter, inParentezcoIdParameter, inPorcentajeParameter);
         }
     
         public virtual int RESET_TABLE()
@@ -250,84 +281,6 @@ namespace TAREABD1
         public virtual int sp_upgraddiagrams()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_upgraddiagrams");
-        }
-    
-        public virtual ObjectResult<Nullable<int>> INICIO_SESION2(string uSER, string pASS)
-        {
-            var uSERParameter = uSER != null ?
-                new ObjectParameter("USER", uSER) :
-                new ObjectParameter("USER", typeof(string));
-    
-            var pASSParameter = pASS != null ?
-                new ObjectParameter("PASS", pASS) :
-                new ObjectParameter("PASS", typeof(string));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("INICIO_SESION2", uSERParameter, pASSParameter);
-        }
-    
-        public virtual ObjectResult<BENEFICIARIO_POR_CUENTA_Result> BENEFICIARIO_POR_CUENTA(Nullable<int> numeroCuenta, Nullable<int> valorDocuBene)
-        {
-            var numeroCuentaParameter = numeroCuenta.HasValue ?
-                new ObjectParameter("NumeroCuenta", numeroCuenta) :
-                new ObjectParameter("NumeroCuenta", typeof(int));
-    
-            var valorDocuBeneParameter = valorDocuBene.HasValue ?
-                new ObjectParameter("ValorDocuBene", valorDocuBene) :
-                new ObjectParameter("ValorDocuBene", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BENEFICIARIO_POR_CUENTA_Result>("BENEFICIARIO_POR_CUENTA", numeroCuentaParameter, valorDocuBeneParameter);
-        }
-    
-        public virtual ObjectResult<BENEFICIARIO_POR_CUENTA2_Result> BENEFICIARIO_POR_CUENTA2(Nullable<int> numeroCuenta, Nullable<int> valorDocuBene)
-        {
-            var numeroCuentaParameter = numeroCuenta.HasValue ?
-                new ObjectParameter("NumeroCuenta", numeroCuenta) :
-                new ObjectParameter("NumeroCuenta", typeof(int));
-    
-            var valorDocuBeneParameter = valorDocuBene.HasValue ?
-                new ObjectParameter("ValorDocuBene", valorDocuBene) :
-                new ObjectParameter("ValorDocuBene", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BENEFICIARIO_POR_CUENTA2_Result>("BENEFICIARIO_POR_CUENTA2", numeroCuentaParameter, valorDocuBeneParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> CHECK_PORCENTAJES2(Nullable<int> numCuenta)
-        {
-            var numCuentaParameter = numCuenta.HasValue ?
-                new ObjectParameter("NumCuenta", numCuenta) :
-                new ObjectParameter("NumCuenta", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CHECK_PORCENTAJES2", numCuentaParameter);
-        }
-    
-        public virtual ObjectResult<Nullable<int>> GET_NUMERO_BENEFICIARIOS(Nullable<int> inNumCuenta)
-        {
-            var inNumCuentaParameter = inNumCuenta.HasValue ?
-                new ObjectParameter("inNumCuenta", inNumCuenta) :
-                new ObjectParameter("inNumCuenta", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("GET_NUMERO_BENEFICIARIOS", inNumCuentaParameter);
-        }
-    
-        public virtual int INSERTAR_BENEFICIARIO(Nullable<int> inNumCuenta, Nullable<int> inValorDocuIdentidadBeneficiario, Nullable<int> inParentezcoId, Nullable<int> inPorcentaje)
-        {
-            var inNumCuentaParameter = inNumCuenta.HasValue ?
-                new ObjectParameter("inNumCuenta", inNumCuenta) :
-                new ObjectParameter("inNumCuenta", typeof(int));
-    
-            var inValorDocuIdentidadBeneficiarioParameter = inValorDocuIdentidadBeneficiario.HasValue ?
-                new ObjectParameter("inValorDocuIdentidadBeneficiario", inValorDocuIdentidadBeneficiario) :
-                new ObjectParameter("inValorDocuIdentidadBeneficiario", typeof(int));
-    
-            var inParentezcoIdParameter = inParentezcoId.HasValue ?
-                new ObjectParameter("inParentezcoId", inParentezcoId) :
-                new ObjectParameter("inParentezcoId", typeof(int));
-    
-            var inPorcentajeParameter = inPorcentaje.HasValue ?
-                new ObjectParameter("inPorcentaje", inPorcentaje) :
-                new ObjectParameter("inPorcentaje", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("INSERTAR_BENEFICIARIO", inNumCuentaParameter, inValorDocuIdentidadBeneficiarioParameter, inParentezcoIdParameter, inPorcentajeParameter);
         }
     }
 }

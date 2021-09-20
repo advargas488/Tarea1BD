@@ -14,15 +14,28 @@ namespace TAREABD1
     
     public partial class Persona
     {
-        public int Id { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Persona()
+        {
+            this.Beneficiarios = new HashSet<Beneficiario>();
+            this.Cuentas = new HashSet<Cuenta>();
+            this.Usuarios = new HashSet<Usuario>();
+        }
+    
+        public int ValorDocuIdentidad { get; set; }
         public int TipoDocuIdentidad { get; set; }
         public string Nombre { get; set; }
-        public int ValorDocuIdentidad { get; set; }
         public System.DateTime FechaNacimiento { get; set; }
         public string Email { get; set; }
         public int Telefono1 { get; set; }
         public int Telefono2 { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Beneficiario> Beneficiarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Cuenta> Cuentas { get; set; }
         public virtual TipoDocuIdentidad TipoDocuIdentidad1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

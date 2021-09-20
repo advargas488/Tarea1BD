@@ -17,5 +17,8 @@ namespace TAREABD1
         public int Id { get; set; }
         public string Username { get; set; }
         public int NumeroCuenta { get; set; }
+    
+        public virtual Cuenta Cuenta { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

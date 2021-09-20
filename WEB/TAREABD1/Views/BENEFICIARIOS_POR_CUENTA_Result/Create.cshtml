@@ -13,10 +13,10 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>BENEFICIARIOS_POR_CUENTA_Result</h4>
+        <h4>Agregar beneficiario</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        
+        <h2 class="alert-danger">@ViewBag.Message</h2>
         <div class="form-group">
             @Html.LabelFor(model => model.ValorDocuIdentidadBeneficiario, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -26,10 +26,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ParentezcoId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <label class="control-label col-md-2">Parentezco</label>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ParentezcoId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ParentezcoId, "", new { @class = "text-danger" })
+                <select class="form-control" id="ParentezcoId" name="ParentezcoId">
+                    <option value="1">Padre</option>
+                    <option value="2">Madre</option>
+                    <option value="3">Hijo</option>
+                    <option value="4">Hija</option>
+                    <option value="5">Hermano</option>
+                    <option value="6">Hermana</option>
+                    <option value="7">Amigo</option>
+                    <option value="8">Amiga</option>
+                </select>
             </div>
         </div>
 

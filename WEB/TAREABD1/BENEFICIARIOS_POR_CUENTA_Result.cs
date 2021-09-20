@@ -13,7 +13,7 @@ namespace TAREABD1
     
     public partial class BENEFICIARIOS_POR_CUENTA_Result
     {
-        public int Id { get; set; }
+        public int id { get; set; }
         public int NumeroCuenta { get; set; }
         public int ValorDocuIdentidadBeneficiario { get; set; }
         public int ParentezcoId { get; set; }

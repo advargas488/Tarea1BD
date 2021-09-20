@@ -11,15 +11,12 @@ namespace TAREABD1
 {
     using System;
     
-    public partial class BENEFICIARIO_POR_CUENTA_Result
+    public partial class CUENTAS_POR_USUARIO_Result
     {
-        public string Nombre { get; set; }
-        public int ParentezcoId { get; set; }
-        public int Porcentaje { get; set; }
-        public System.DateTime FechaNacimiento { get; set; }
-        public int ValorDocuIdentidad { get; set; }
-        public string Email { get; set; }
-        public int Telefono1 { get; set; }
-        public int Telefono2 { get; set; }
+        public int NumeroCuenta { get; set; }
+        public int ValorDocuIdentidadDelCliente { get; set; }
+        public int TipoCuentaId { get; set; }
+        public System.DateTime FechaCreacion { get; set; }
+        public string Saldo { get; set; }
     }
 }

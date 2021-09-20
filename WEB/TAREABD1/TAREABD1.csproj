@@ -137,13 +137,14 @@
     <Compile Include="BENEFICIARIO_POR_CUENTA2_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="BENEFICIARIO_POR_CUENTA_Result.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\BENEFICIARIOS_POR_CUENTA_ResultController.cs" />
+    <Compile Include="Controllers\CuentasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Cuenta.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CUENTAS_POR_USUARIO_Result.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
@@ -207,8 +208,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -254,9 +255,9 @@
     <Content Include="Views\Usuarios\Index.cshtml" />
     <Content Include="Views\BENEFICIARIOS_POR_CUENTA_Result\Create.cshtml" />
     <Content Include="Views\BENEFICIARIOS_POR_CUENTA_Result\Delete.cshtml" />
-    <Content Include="Views\BENEFICIARIOS_POR_CUENTA_Result\Details.cshtml" />
     <Content Include="Views\BENEFICIARIOS_POR_CUENTA_Result\Edit.cshtml" />
     <Content Include="Views\BENEFICIARIOS_POR_CUENTA_Result\Index.cshtml" />
+    <Content Include="Views\Cuentas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,20 +35,6 @@ namespace TAREABD1.Controllers
             return View(db.BENEFICIARIOS_POR_CUENTA(NumeroCuenta));
         }
 
-        // GET: BENEFICIARIOS_POR_CUENTA_Result/Details/5
-        public ActionResult Details(int numeroCuenta, int valorDocu)
-        {
-            if (valorDocu == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            BENEFICIARIO_POR_CUENTA2_Result bENEFICIARIO_POR_CUENTA2_Result = db.BENEFICIARIO_POR_CUENTA2(numeroCuenta,valorDocu).First();
-            if (bENEFICIARIO_POR_CUENTA2_Result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(bENEFICIARIO_POR_CUENTA2_Result);
-        }
 
         // GET: BENEFICIARIOS_POR_CUENTA_Result/Create
         public ActionResult Create()
@@ -66,7 +52,7 @@ namespace TAREABD1.Controllers
             int numeroBeneficiarios = (int)db.GET_NUMERO_BENEFICIARIOS(n).First();
             if (numeroBeneficiarios >= 3)
             {
-                ViewBag.Message("No puedes tener más de 3 beneficiarios");
+                ViewBag.Message = "No puedes tener más de 3 beneficiarios";
                 return View();
             }
             if (ModelState.IsValid)

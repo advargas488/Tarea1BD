@@ -2,9 +2,9 @@
 <Schema Namespace="Tarea1_BDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Beneficiarios">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="id" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="NumeroCuenta" Type="int" Nullable="false" />
     <Property Name="ValorDocuIdentidadBeneficiario" Type="int" Nullable="false" />
     <Property Name="ParentezcoId" Type="int" Nullable="false" />
@@ -13,12 +13,11 @@
   </EntityType>
   <EntityType Name="Cuentas">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="NumeroCuenta" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NumeroCuenta" Type="int" Nullable="false" />
     <Property Name="ValorDocuIdentidadDelCliente" Type="int" Nullable="false" />
     <Property Name="TipoCuentaId" Type="int" Nullable="false" />
-    <Property Name="NumeroCuenta" Type="int" Nullable="false" />
     <Property Name="FechaCreacion" Type="date" Nullable="false" />
     <Property Name="Saldo" Type="nvarchar" MaxLength="30" Nullable="false" />
   </EntityType>
@@ -31,12 +30,11 @@
   </EntityType>
   <EntityType Name="Personas">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="ValorDocuIdentidad" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ValorDocuIdentidad" Type="int" Nullable="false" />
     <Property Name="TipoDocuIdentidad" Type="int" Nullable="false" />
     <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="ValorDocuIdentidad" Type="int" Nullable="false" />
     <Property Name="FechaNacimiento" Type="date" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="64" Nullable="false" />
     <Property Name="Telefono1" Type="int" Nullable="false" />
@@ -84,12 +82,11 @@
   </EntityType>
   <EntityType Name="Usuarios">
     <Key>
-      <PropertyRef Name="Id" />
+      <PropertyRef Name="Username" />
     </Key>
-    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Pass" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="ValorDocuIdentidad" Type="int" Nullable="false" />
+    <Property Name="Pass" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="EsAdministrador" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Usuarios_Ver">
@@ -100,9 +97,18 @@
     <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="NumeroCuenta" Type="int" Nullable="false" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Beneficiarios_Cuentas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Beneficiarios_Cuentas" />-->
+  <Association Name="FK_Beneficiarios_Cuentas">
+    <End Role="Cuentas" Type="Self.Cuentas" Multiplicity="1" />
+    <End Role="Beneficiarios" Type="Self.Beneficiarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuentas">
+        <PropertyRef Name="NumeroCuenta" />
+      </Principal>
+      <Dependent Role="Beneficiarios">
+        <PropertyRef Name="NumeroCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Beneficiarios_Parentezcos">
     <End Role="Parentezcos" Type="Self.Parentezcos" Multiplicity="1" />
     <End Role="Beneficiarios" Type="Self.Beneficiarios" Multiplicity="*" />
@@ -115,12 +121,30 @@ warning 6035: The relationship 'FK_Beneficiarios_Cuentas' has columns that are n
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Beneficiarios_Personas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Beneficiarios_Personas" />-->
-  <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Cuentas_Personas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Cuentas_Personas" />-->
+  <Association Name="FK_Beneficiarios_Personas">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+    <End Role="Beneficiarios" Type="Self.Beneficiarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="ValorDocuIdentidad" />
+      </Principal>
+      <Dependent Role="Beneficiarios">
+        <PropertyRef Name="ValorDocuIdentidadBeneficiario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Cuentas_Personas">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+    <End Role="Cuentas" Type="Self.Cuentas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="ValorDocuIdentidad" />
+      </Principal>
+      <Dependent Role="Cuentas">
+        <PropertyRef Name="ValorDocuIdentidadDelCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Cuentas_TipoCuentaAhorros">
     <End Role="TipoCuentaAhorros" Type="Self.TipoCuentaAhorros" Multiplicity="1" />
     <End Role="Cuentas" Type="Self.Cuentas" Multiplicity="*" />
@@ -145,15 +169,42 @@ warning 6035: The relationship 'FK_Cuentas_Personas' has columns that are not pa
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Usuarios_Personas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Usuarios_Personas" />-->
-  <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Usuarios_Ver_Cuentas' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Usuarios_Ver_Cuentas" />-->
-  <!--Errors Found During Generation:
-warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
-        <Association Name="FK_Usuarios_Ver_Usuarios" />-->
+  <Association Name="FK_Usuarios_Personas">
+    <End Role="Personas" Type="Self.Personas" Multiplicity="1" />
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Personas">
+        <PropertyRef Name="ValorDocuIdentidad" />
+      </Principal>
+      <Dependent Role="Usuarios">
+        <PropertyRef Name="ValorDocuIdentidad" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Ver_Cuentas">
+    <End Role="Cuentas" Type="Self.Cuentas" Multiplicity="1" />
+    <End Role="Usuarios_Ver" Type="Self.Usuarios_Ver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cuentas">
+        <PropertyRef Name="NumeroCuenta" />
+      </Principal>
+      <Dependent Role="Usuarios_Ver">
+        <PropertyRef Name="NumeroCuenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usuarios_Ver_Usuarios">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+    <End Role="Usuarios_Ver" Type="Self.Usuarios_Ver" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="Usuarios_Ver">
+        <PropertyRef Name="Username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="TipoCuentaAhorro_TipoMoneda">
     <End Role="TipoMoneda" Type="Self.TipoMoneda" Multiplicity="1" />
     <End Role="TipoCuentaAhorros" Type="Self.TipoCuentaAhorros" Multiplicity="*" />
@@ -177,10 +228,6 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
     <Parameter Name="Telefono1" Type="int" Mode="In" />
     <Parameter Name="Telefono2" Type="int" Mode="In" />
   </Function>
-  <Function Name="BENEFICIARIO_POR_CUENTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-    <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
-    <Parameter Name="ValorDocuBene" Type="int" Mode="In" />
-  </Function>
   <Function Name="BENEFICIARIO_POR_CUENTA2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
     <Parameter Name="ValorDocuBene" Type="int" Mode="In" />
@@ -190,6 +237,9 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
   </Function>
   <Function Name="CHECK_PORCENTAJES2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NumCuenta" Type="int" Mode="In" />
+  </Function>
+  <Function Name="CUENTAS_POR_USUARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="InUser" Type="varchar" Mode="In" />
   </Function>
   <Function Name="ELIMINAR_BENEFICIARIO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="NumeroCuenta" Type="int" Mode="In" />
@@ -251,9 +301,21 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
     <EntitySet Name="TipoMoneda" EntityType="Self.TipoMoneda" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usuarios_Ver" EntityType="Self.Usuarios_Ver" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Beneficiarios_Cuentas" Association="Self.FK_Beneficiarios_Cuentas">
+      <End Role="Cuentas" EntitySet="Cuentas" />
+      <End Role="Beneficiarios" EntitySet="Beneficiarios" />
+    </AssociationSet>
     <AssociationSet Name="FK_Beneficiarios_Parentezcos" Association="Self.FK_Beneficiarios_Parentezcos">
       <End Role="Parentezcos" EntitySet="Parentezcos" />
       <End Role="Beneficiarios" EntitySet="Beneficiarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Beneficiarios_Personas" Association="Self.FK_Beneficiarios_Personas">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="Beneficiarios" EntitySet="Beneficiarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Cuentas_Personas" Association="Self.FK_Cuentas_Personas">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="Cuentas" EntitySet="Cuentas" />
     </AssociationSet>
     <AssociationSet Name="FK_Cuentas_TipoCuentaAhorros" Association="Self.FK_Cuentas_TipoCuentaAhorros">
       <End Role="TipoCuentaAhorros" EntitySet="TipoCuentaAhorros" />
@@ -262,6 +324,18 @@ warning 6035: The relationship 'FK_Usuarios_Ver_Usuarios' has columns that are n
     <AssociationSet Name="FK_Personas_TipoDocuIdentidad" Association="Self.FK_Personas_TipoDocuIdentidad">
       <End Role="TipoDocuIdentidad" EntitySet="TipoDocuIdentidad" />
       <End Role="Personas" EntitySet="Personas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Personas" Association="Self.FK_Usuarios_Personas">
+      <End Role="Personas" EntitySet="Personas" />
+      <End Role="Usuarios" EntitySet="Usuarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Ver_Cuentas" Association="Self.FK_Usuarios_Ver_Cuentas">
+      <End Role="Cuentas" EntitySet="Cuentas" />
+      <End Role="Usuarios_Ver" EntitySet="Usuarios_Ver" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usuarios_Ver_Usuarios" Association="Self.FK_Usuarios_Ver_Usuarios">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Usuarios_Ver" EntitySet="Usuarios_Ver" />
     </AssociationSet>
     <AssociationSet Name="TipoCuentaAhorro_TipoMoneda" Association="Self.TipoCuentaAhorro_TipoMoneda">
       <End Role="TipoMoneda" EntitySet="TipoMoneda" />

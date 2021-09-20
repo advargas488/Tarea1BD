@@ -4,7 +4,7 @@
     <EntitySetMapping Name="Beneficiarios">
       <EntityTypeMapping TypeName="Tarea1_BDModel.Beneficiario">
         <MappingFragment StoreEntitySet="Beneficiarios">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
           <ScalarProperty Name="ValorDocuIdentidadBeneficiario" ColumnName="ValorDocuIdentidadBeneficiario" />
           <ScalarProperty Name="ParentezcoId" ColumnName="ParentezcoId" />
@@ -16,10 +16,9 @@
     <EntitySetMapping Name="Cuentas">
       <EntityTypeMapping TypeName="Tarea1_BDModel.Cuenta">
         <MappingFragment StoreEntitySet="Cuentas">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
           <ScalarProperty Name="ValorDocuIdentidadDelCliente" ColumnName="ValorDocuIdentidadDelCliente" />
           <ScalarProperty Name="TipoCuentaId" ColumnName="TipoCuentaId" />
-          <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
           <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
           <ScalarProperty Name="Saldo" ColumnName="Saldo" />
         </MappingFragment>
@@ -36,10 +35,9 @@
     <EntitySetMapping Name="Personas">
       <EntityTypeMapping TypeName="Tarea1_BDModel.Persona">
         <MappingFragment StoreEntitySet="Personas">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ValorDocuIdentidad" ColumnName="ValorDocuIdentidad" />
           <ScalarProperty Name="TipoDocuIdentidad" ColumnName="TipoDocuIdentidad" />
           <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="ValorDocuIdentidad" ColumnName="ValorDocuIdentidad" />
           <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
@@ -94,10 +92,9 @@
     <EntitySetMapping Name="Usuarios">
       <EntityTypeMapping TypeName="Tarea1_BDModel.Usuario">
         <MappingFragment StoreEntitySet="Usuarios">
-          <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Pass" ColumnName="Pass" />
           <ScalarProperty Name="ValorDocuIdentidad" ColumnName="ValorDocuIdentidad" />
+          <ScalarProperty Name="Pass" ColumnName="Pass" />
           <ScalarProperty Name="EsAdministrador" ColumnName="EsAdministrador" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -112,10 +109,24 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <FunctionImportMapping FunctionImportName="ACTUALIZAR_PERSONA_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.ACTUALIZAR_PERSONA_BENEFICIARIO" />
+    <FunctionImportMapping FunctionImportName="BENEFICIARIO_POR_CUENTA2" FunctionName="Tarea1_BDModel.Store.BENEFICIARIO_POR_CUENTA2">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Tarea1_BDModel.BENEFICIARIO_POR_CUENTA2_Result">
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="ParentezcoId" ColumnName="ParentezcoId" />
+          <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
+          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
+          <ScalarProperty Name="ValorDocuIdentidadBeneficiario" ColumnName="ValorDocuIdentidadBeneficiario" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
+          <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="BENEFICIARIOS_POR_CUENTA" FunctionName="Tarea1_BDModel.Store.BENEFICIARIOS_POR_CUENTA">
       <ResultMapping>
         <ComplexTypeMapping TypeName="Tarea1_BDModel.BENEFICIARIOS_POR_CUENTA_Result">
-          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="id" ColumnName="id" />
           <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
           <ScalarProperty Name="ValorDocuIdentidadBeneficiario" ColumnName="ValorDocuIdentidadBeneficiario" />
           <ScalarProperty Name="ParentezcoId" ColumnName="ParentezcoId" />
@@ -124,7 +135,22 @@
         </ComplexTypeMapping>
       </ResultMapping>
     </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="CHECK_PORCENTAJES2" FunctionName="Tarea1_BDModel.Store.CHECK_PORCENTAJES2" />
+    <FunctionImportMapping FunctionImportName="CUENTAS_POR_USUARIO" FunctionName="Tarea1_BDModel.Store.CUENTAS_POR_USUARIO">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Tarea1_BDModel.CUENTAS_POR_USUARIO_Result">
+          <ScalarProperty Name="NumeroCuenta" ColumnName="NumeroCuenta" />
+          <ScalarProperty Name="ValorDocuIdentidadDelCliente" ColumnName="ValorDocuIdentidadDelCliente" />
+          <ScalarProperty Name="TipoCuentaId" ColumnName="TipoCuentaId" />
+          <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+          <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="ELIMINAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.ELIMINAR_BENEFICIARIO" />
+    <FunctionImportMapping FunctionImportName="GET_NUMERO_BENEFICIARIOS" FunctionName="Tarea1_BDModel.Store.GET_NUMERO_BENEFICIARIOS" />
+    <FunctionImportMapping FunctionImportName="INICIO_SESION2" FunctionName="Tarea1_BDModel.Store.INICIO_SESION2" />
+    <FunctionImportMapping FunctionImportName="INSERTAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.INSERTAR_BENEFICIARIO" />
     <FunctionImportMapping FunctionImportName="RESET_TABLE" FunctionName="Tarea1_BDModel.Store.RESET_TABLE" />
     <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="Tarea1_BDModel.Store.sp_alterdiagram" />
     <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="Tarea1_BDModel.Store.sp_creatediagram" />
@@ -150,37 +176,5 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Tarea1_BDModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Tarea1_BDModel.Store.sp_upgraddiagrams" />
-    <FunctionImportMapping FunctionImportName="INICIO_SESION2" FunctionName="Tarea1_BDModel.Store.INICIO_SESION2" />
-    <FunctionImportMapping FunctionImportName="BENEFICIARIO_POR_CUENTA" FunctionName="Tarea1_BDModel.Store.BENEFICIARIO_POR_CUENTA">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Tarea1_BDModel.BENEFICIARIO_POR_CUENTA_Result">
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="ParentezcoId" ColumnName="ParentezcoId" />
-          <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
-          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-          <ScalarProperty Name="ValorDocuIdentidad" ColumnName="ValorDocuIdentidad" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
-          <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="BENEFICIARIO_POR_CUENTA2" FunctionName="Tarea1_BDModel.Store.BENEFICIARIO_POR_CUENTA2">
-      <ResultMapping>
-        <ComplexTypeMapping TypeName="Tarea1_BDModel.BENEFICIARIO_POR_CUENTA2_Result">
-          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-          <ScalarProperty Name="ParentezcoId" ColumnName="ParentezcoId" />
-          <ScalarProperty Name="Porcentaje" ColumnName="Porcentaje" />
-          <ScalarProperty Name="FechaNacimiento" ColumnName="FechaNacimiento" />
-          <ScalarProperty Name="ValorDocuIdentidadBeneficiario" ColumnName="ValorDocuIdentidadBeneficiario" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="Telefono1" ColumnName="Telefono1" />
-          <ScalarProperty Name="Telefono2" ColumnName="Telefono2" />
-        </ComplexTypeMapping>
-      </ResultMapping>
-    </FunctionImportMapping>
-    <FunctionImportMapping FunctionImportName="CHECK_PORCENTAJES2" FunctionName="Tarea1_BDModel.Store.CHECK_PORCENTAJES2" />
-    <FunctionImportMapping FunctionImportName="GET_NUMERO_BENEFICIARIOS" FunctionName="Tarea1_BDModel.Store.GET_NUMERO_BENEFICIARIOS" />
-    <FunctionImportMapping FunctionImportName="INSERTAR_BENEFICIARIO" FunctionName="Tarea1_BDModel.Store.INSERTAR_BENEFICIARIO" />
   </EntityContainerMapping>
 </Mapping>
